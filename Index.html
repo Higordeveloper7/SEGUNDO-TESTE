@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7c3aed">
+
+<title>CRAKUDOFFX 🃏</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#08080d;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(8,8,13,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #24242e;
+}
+
+.nav{
+    max-width:1150px;
+    margin:auto;
+    padding:17px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#995cff;
+}
+
+.admin-btn{
+    background:#17131f;
+    border:1px solid #49306c;
+    color:#c99cff;
+    padding:9px 13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.admin-btn:hover{
+    background:#241837;
+}
+
+/* HERO */
+
+.hero{
+    max-width:1150px;
+    margin:auto;
+    padding:75px 20px 45px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 14px;
+    border:1px solid #42256b;
+    background:#170d27;
+    border-radius:30px;
+    color:#bd91ff;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(42px,8vw,76px);
+    line-height:.95;
+    letter-spacing:-4px;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    color:#9657ff;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#9999a8;
+    font-size:16px;
+    line-height:1.7;
+}
+
+.search-area{
+    max-width:700px;
+    margin:35px auto 0;
+}
+
+.search{
+    width:100%;
+    padding:17px 20px;
+    border-radius:14px;
+    border:1px solid #292936;
+    background:#111118;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.search:focus{
+    border-color:#854cff;
+}
+
+/* CATEGORIAS */
+
+.categories{
+    max-width:1150px;
+    margin:15px auto 35px;
+    padding:0 20px;
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    flex:0 0 auto;
+    border:1px solid #292936;
+    background:#111118;
+    color:#aaaab8;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.category.active,
+.category:hover{
+    color:#fff;
+    background:#211438;
+    border-color:#7d45d8;
+}
+
+/* CONTENT */
+
+.content{
+    max-width:1150px;
+    margin:auto;
+    padding:0 20px 70px;
+}
+
+.section-title{
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:25px;
+}
+
+.section-title p{
+    color:#777786;
+    margin-top:6px;
+    font-size:14px;
+}
+
+.commands{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.card{
+    background:#101017;
+    border:1px solid #24242f;
+    border-radius:16px;
+    padding:20px;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    border-color:#58338d;
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:10px;
+}
+
+.card h3{
+    font-size:17px;
+}
+
+.tag{
+    font-size:10px;
+    padding:5px 8px;
+    border-radius:6px;
+    background:#241638;
+    color:#b888ff;
+}
+
+.description{
+    color:#858593;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.command-box{
+    background:#08080d;
+    border:1px solid #25252e;
+    border-radius:10px;
+    padding:13px;
+    display:flex;
+    gap:10px;
+}
+
+.command{
+    flex:1;
+    overflow-x:auto;
+    white-space:nowrap;
+    color:#d2b6ff;
+    font-family:monospace;
+    font-size:12px;
+}
+
+.copy{
+    border:0;
+    background:#7c3aed;
+    color:white;
+    padding:8px 11px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* SEM COMANDOS */
+
+.empty{
+    text-align:center;
+    padding:65px 20px;
+    color:#666675;
+}
+
+.empty .icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.empty h3{
+    color:#aaaab8;
+    margin-bottom:7px;
+}
+
+/* MODAL ADMIN */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:500px;
+    background:#101017;
+    border:1px solid #30263e;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 20px 70px rgba(0,0,0,.5);
+}
+
+.modal-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-title h2{
+    font-size:21px;
+}
+
+.close{
+    background:none;
+    border:0;
+    color:#888;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.input{
+    width:100%;
+    margin-bottom:12px;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #292936;
+    background:#08080d;
+    color:#fff;
+    outline:none;
+}
+
+textarea.input{
+    min-height:100px;
+    resize:vertical;
+}
+
+.select{
+    width:100%;
+    margin-bottom:12px;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #292936;
+    background:#08080d;
+    color:#fff;
+}
+
+.save{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:#7c3aed;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.save:hover{
+    background:#8d50ef;
+}
+
+.admin-area{
+    display:none;
+}
+
+.admin-info{
+    background:#15121c;
+    border:1px solid #332444;
+    padding:14px;
+    border-radius:10px;
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid #20202a;
+    padding:30px 20px;
+    text-align:center;
+    color:#62626f;
+    font-size:12px;
+}
+
+footer strong{
+    color:#9b5cff;
+}
+
+@media(max-width:700px){
+
+    .status{
+        display:none;
+    }
+
+    .hero{
+        padding:55px 18px 35px;
+    }
+
+    .hero h1{
+        font-size:49px;
+    }
+
+    .commands{
+        grid-template-columns:1fr;
+    }
+
+    .content{
+        padding:0 15px 50px;
+    }
+
+    .categories{
+        padding:0 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav class="nav">
+
+<div class="logo">
+CRAKUDOFFX <span>🃏</span>
+</div>
+
+<button class="admin-btn" onclick="openAdmin()">
+🔐 ADMIN
+</button>
+
+</nav>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+<div class="badge">
+⚡ COMUNIDADE ANDROID
+</div>
+
+<h1>
+COMANDOS<br>
+<span>CRAKUDOFFX 🃏</span>
+</h1>
+
+<p>
+Central da comunidade para comandos Brevent, ADB,
+otimização Android, desempenho e configurações.
+</p>
+
+<div class="search-area">
+
+<input
+id="search"
+class="search"
+type="text"
+placeholder="🔎 Pesquisar comando..."
+onkeyup="searchCommands()"
+>
+
+</div>
+
+</section>
+
+
+<div class="categories">
+
+<button class="category active"
+onclick="filterCategory('all',this)">
+Todos
+</button>
+
+<button class="category"
+onclick="filterCategory('brevent',this)">
+Brevent
+</button>
+
+<button class="category"
+onclick="filterCategory('otimizacao',this)">
+Otimização
+</button>
+
+<button class="category"
+onclick="filterCategory('desempenho',this)">
+Desempenho
+</button>
+
+<button class="category"
+onclick="filterCategory('sistema',this)">
+Sistema
+</button>
+
+<button class="category"
+onclick="filterCategory('rede',this)">
+Rede
+</button>
+
+</div>
+
+
+<section class="content">
+
+<div class="section-title">
+
+<h2>📚 Comandos</h2>
+
+<p>
+Comandos publicados pela administração da comunidade.
+</p>
+
+</div>
+
+
+<div id="commands" class="commands"></div>
+
+
+<div id="empty" class="empty">
+
+<div class="icon">📭</div>
+
+<h3>Nenhum comando publicado</h3>
+
+<p>
+Os administradores ainda não adicionaram comandos.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+© 2026 <strong>CRAKUDOFFX 🃏</strong> • Comunidade Android
+
+</footer>
+
+
+<!-- MODAL LOGIN -->
+
+<div id="loginModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>🔐 Acesso Administrativo</h2>
+
+<button class="close" onclick="closeModal('loginModal')">
+×
+</button>
+
+</div>
+
+<input
+id="adminPassword"
+class="input"
+type="password"
+placeholder="Senha de administrador"
+>
+
+<button class="save" onclick="loginAdmin()">
+ENTRAR NO PAINEL
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PAINEL ADMIN -->
+
+<div id="adminModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>⚙️ Painel Admin</h2>
+
+<button class="close" onclick="closeModal('adminModal')">
+×
+</button>
+
+</div>
+
+<div class="admin-info">
+Use este painel para publicar novos comandos na biblioteca.
+</div>
+
+<input
+id="cmdTitle"
+class="input"
+placeholder="Nome do comando"
+>
+
+<input
+id="cmdTag"
+class="input"
+placeholder="Etiqueta ex: BREVENT"
+>
+
+<select id="cmdCategory" class="select">
+
+<option value="brevent">Brevent</option>
+<option value="otimizacao">Otimização</option>
+<option value="desempenho">Desempenho</option>
+<option value="sistema">Sistema</option>
+<option value="rede">Rede</option>
+
+</select>
+
+<textarea
+id="cmdDescription"
+class="input"
+placeholder="Descrição do comando"
+></textarea>
+
+<textarea
+id="cmdCode"
+class="input"
+placeholder="Digite o comando aqui"
+></textarea>
+
+<button class="save" onclick="addCommand()">
+➕ PUBLICAR COMANDO
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/*
+==================================================
+CONFIGURAÇÃO DO ADMIN
+==================================================
+
+IMPORTANTE:
+Esta senha é apenas uma proteção local.
+Em GitHub Pages/Vercel estático ela NÃO é
+segurança real porque o código pode ser visto.
+
+Para segurança verdadeira será necessário
+backend + autenticação.
+==================================================
+*/
+
+const ADMIN_PASSWORD = "CRAKU_ADMIN_2026";
+
+
+let currentCategory = "all";
+
+
+/* ABRIR LOGIN */
+
+function openAdmin(){
+
+    document.getElementById("loginModal").style.display = "flex";
+
+}
+
+
+/* FECHAR MODAL */
+
+function closeModal(id){
+
+    document.getElementById(id).style.display = "none";
+
+}
+
+
+/* LOGIN */
+
+function loginAdmin(){
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    if(password === ADMIN_PASSWORD){
+
+        closeModal("loginModal");
+
+        document.getElementById("adminModal").style.display = "flex";
+
+        document.getElementById("adminPassword").value = "";
+
+    }else{
+
+        alert("❌ Senha incorreta.");
+
+    }
+
+}
+
+
+/* BANCO LOCAL */
+
+function getCommands(){
+
+    return JSON.parse(
+        localStorage.getItem("crakudoffx_commands") || "[]"
+    );
+
+}
+
+
+function saveCommands(commands){
+
+    localStorage.setItem(
+        "crakudoffx_commands",
+        JSON.stringify(commands)
+    );
+
+}
+
+
+/* ADICIONAR COMANDO */
+
+function addCommand(){
+
+    const title =
+        document.getElementById("cmdTitle").value.trim();
+
+    const tag =
+        document.getElementById("cmdTag").value.trim();
+
+    const category =
+        document.getElementById("cmdCategory").value;
+
+    const description =
+        document.getElementById("cmdDescription").value.trim();
+
+    const code =
+        document.getElementById("cmdCode").value.trim();
+
+
+    if(!title || !code){
+
+        alert("Preencha pelo menos o nome e o comando.");
+
+        return;
+
+    }
+
+
+    const commands = getCommands();
+
+
+    commands.push({
+
+        id: Date.now(),
+
+        title:title,
+
+        tag:tag || "COMANDO",
+
+        category:category,
+
+        description:
+            description || "Comando publicado pela administração.",
+
+        code:code
+
+    });
+
+
+    saveCommands(commands);
+
+
+    document.getElementById("cmdTitle").value = "";
+    document.getElementById("cmdTag").value = "";
+    document.getElementById("cmdDescription").value = "";
+    document.getElementById("cmdCode").value = "";
+
+
+    closeModal("adminModal");
+
+    renderCommands();
+
+}
+
+
+/* MOSTRAR COMANDOS */
+
+function renderCommands(){
+
+    const container =
+        document.getElementById("commands");
+
+    const commands = getCommands();
+
+    container.innerHTML = "";
+
+
+    if(commands.length === 0){
+
+        document.getElementById("empty").style.display = "block";
+
+        return;
+
+    }
+
+
+    document.getElementById("empty").style.display = "none";
+
+
+    commands.forEach(command => {
+
+        const card = document.createElement("article");
+
+        card.className = "card";
+
+        card.dataset.category = command.category;
+
+
+        card.innerHTML = `
+
+            <div class="card-top">
+
+                <h3>${escapeHTML(command.title)}</h3>
+
+                <span class="tag">
+                    ${escapeHTML(command.tag)}
+                </span>
+
+            </div>
+
+            <p class="description">
+                ${escapeHTML(command.description)}
+            </p>
+
+            <div class="command-box">
+
+                <code class="command">
+                    ${escapeHTML(command.code)}
+                </code>
+
+                <button class="copy"
+                    onclick="copyCommand(this)">
+                    COPIAR
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+
+    searchCommands();
+
+}
+
+
+/* COPIAR */
+
+function copyCommand(button){
+
+    const command =
+        button.parentElement
+        .querySelector(".command")
+        .innerText
+        .trim();
+
+
+    navigator.clipboard.writeText(command);
+
+
+    const old =
+        button.innerText;
+
+
+    button.innerText = "COPIADO ✓";
+
+
+    setTimeout(() => {
+
+        button.innerText = old;
+
+    },1500);
+
+}
+
+
+/* CATEGORIA */
+
+function filterCategory(category,button){
+
+    currentCategory = category;
+
+
+    document
+    .querySelectorAll(".category")
+    .forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+
+    searchCommands();
+
+}
+
+
+/* PESQUISA */
+
+function searchCommands(){
+
+    const search =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(".card");
+
+
+    let visible = 0;
+
+
+    cards.forEach(card => {
+
+        const text =
+            card.innerText.toLowerCase();
+
+
+        const category =
+            card.dataset.category;
+
+
+        const searchMatch =
+            text.includes(search);
+
+
+        const categoryMatch =
+            currentCategory === "all" ||
+            category === currentCategory;
+
+
+        if(searchMatch && categoryMatch){
+
+            card.style.display = "block";
+
+            visible++;
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById("empty").style.display =
+        visible === 0 ? "block" : "none";
+
+}
+
+
+/* PROTEÇÃO CONTRA HTML INJETADO */
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* INICIAR */
+
+renderCommands();
+
+</script>
+
+</body>
+</html>
